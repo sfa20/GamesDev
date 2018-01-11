@@ -98,8 +98,8 @@ void Update(RenderWindow &window) {
 		by < paddles[1].getPosition().y + (paddleSize.y * 0.5)
 		){
 		//bounce of right paddles
-		ballVelocity.x = 1.1f;
-		ballVelocity.y = 1.1f;
+		ballVelocity.x += 1.1f;
+		ballVelocity.y += 1.1f;
 		ball.move(0, 10);
 	}
 	ball.move(ballVelocity * dt);
