@@ -10,7 +10,7 @@ const Keyboard::Key controls[4] = {
 	Keyboard::Down //Player2 Down
 };
 
-const Vector2f paddleSize(25.f, 100.f);
+const Vector2f paddleSize(25.f,100.f);
 Vector2f ballVelocity;
 bool server = false;
 const float ballRadius = 10.f;
@@ -86,21 +86,19 @@ void Update(RenderWindow &window) {
 		) { 
 		//bounce of left paddle
 		ballVelocity.x *= -1.1f;
-		ballVelocity.y *= -1.1f;
-		ball.move(0, -10);
+		ball.move(0, 10);
 	}
 	else if (
 		//ball is inline or behind paddle
-		bx < paddleSize.x &&
+		bx > gameWidth - paddleSize.x &&
 		//And  ball is below top edge of paddle
 		by > paddles[1].getPosition().y -(paddleSize.y * 0.5) &&
 		//And ball is above bottome edge of paddle
 		by < paddles[1].getPosition().y + (paddleSize.y * 0.5)
 		){
 		//bounce of right paddles
-		ballVelocity.x += 1.1f;
-		ballVelocity.y += 1.1f;
-		ball.move(0, 10);
+		ballVelocity.x *= -1.1f;
+		ball.move(0,-10);
 	}
 	ball.move(ballVelocity * dt);
 	// Check and consume events
