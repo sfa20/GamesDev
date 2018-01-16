@@ -17,6 +17,8 @@ const float ballRadius = 10.f;
 const int gameWidth = 800;
 const int gameHeight = 600;
 const float paddleSpeed = 400.f;
+bool paddleOneIsActive = false;
+bool paddleTwoIsActive = false;
 
 CircleShape ball;
 RectangleShape paddles[2];
@@ -33,6 +35,8 @@ void reset()
 	ball.setPosition(gameWidth / 2, gameHeight / 2);
 	ballVelocity = { (server ? 100.0f : -100.0f), 60.0f };
 
+	paddleOneIsActive = false;
+	paddleTwoIsActive = false;
 }
 
 void Load() {
@@ -76,25 +80,25 @@ void Update(RenderWindow &window) {
 		//ball is inline or behind paddle
 		bx < paddleSize.x &&
 		//And  ball is below top edge of paddle
-		by > paddles[0].getPosition().y - (paddleSize.y * 0.5) &&
+		by > paddles[0].getPosition().y - (paddleSize.y / 2) &&
 		//And ball is above bottome edge of paddle
-		by < paddles[0].getPosition().y + (paddleSize.y * 0.5)
+		by < paddles[0].getPosition().y + (paddleSize.y / 2)
 		) { 
 		//bounce of left paddle
 		ballVelocity.x *= -1.1f;
-		ball.move(0, 10);
+		ball.move(30, 0);
 	}
 	else if (
 		//ball is inline or behind paddle
 		bx > gameWidth - paddleSize.x &&
 		//And  ball is below top edge of paddle
-		by > paddles[1].getPosition().y -(paddleSize.y * 0.5) &&
+		by > paddles[1].getPosition().y -(paddleSize.y / 2) &&
 		//And ball is above bottome edge of paddle
-		by < paddles[1].getPosition().y + (paddleSize.y * 0.5)
+		by < paddles[1].getPosition().y + (paddleSize.y / 2)
 		){
 		//bounce of right paddles
 		ballVelocity.x *= -1.1f;
-		ball.move(0,-10);
+		ball.move(-30,0);
 	}
 	ball.move(ballVelocity * dt);
 	// Check and consume events
@@ -113,7 +117,6 @@ void Update(RenderWindow &window) {
 	//handle paddle movement
 	float direction = 0.0f;
 	float direction2 = 0.0f;
-	bool paddleOneIsActive = false;
 	if (Keyboard::isKeyPressed(controls[0]) && paddles[0].getPosition().y - paddleSize.y / 2 > 0) {
 		direction--;
 		paddleOneIsActive = true;
@@ -126,15 +129,15 @@ void Update(RenderWindow &window) {
 
 	if (Keyboard::isKeyPressed(controls[2]) && paddles[1].getPosition().y - paddleSize.y / 2 > 0) {
 		direction2--;
-		//isactive = true;
+		paddleTwoIsActive = true;
 	}
 	if (Keyboard::isKeyPressed(controls[3]) && paddles[1].getPosition().y + paddleSize.y /2 < gameHeight) {
 		direction2++;
-		//isactive = true;
+		paddleTwoIsActive = true;
 	}
 	paddles[1].move(0, direction2 * paddleSpeed * dt);
 
-	if (!(paddleOneIsActive))
+	if (!(paddleOneIsActive) && ball.getPosition().x < gameWidth / 4 * 3)
 	{
 		if (ball.getPosition().y < paddles[0].getPosition().y && paddles[0].getPosition().y - paddleSize.y / 2 > 0)
 		{
@@ -145,8 +148,21 @@ void Update(RenderWindow &window) {
 			direction++;
 		}
 		paddles[0].move(0, direction * paddleSpeed * dt);
-
 	}
+	if (!(paddleTwoIsActive) && ball.getPosition().x > gameWidth / 4 )
+	{
+		if (ball.getPosition().y < paddles[1].getPosition().y && paddles[1].getPosition().y - paddleSize.y / 2 > 0)
+		{
+			direction--;
+		}
+		else if (ball.getPosition().y > paddles[1].getPosition().y && paddles[1].getPosition().y + paddleSize.y / 2 < gameHeight)
+		{
+			direction++;
+		}
+		paddles[1].move(0, direction * paddleSpeed * dt);
+	}
+
+
 }
 
 void Render(RenderWindow &window) {
