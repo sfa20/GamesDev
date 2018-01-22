@@ -37,6 +37,11 @@ void reset()
 
 	paddleOneIsActive = false;
 	paddleTwoIsActive = false;
+
+	//update score text
+	//text.setString("Hello");
+	//Keep score text centered
+	//text.setPosition((gameWidth * 0.5f) - (text.getLocalBounds().width * 0.5f), 0);
 }
 
 void Load() {
@@ -45,6 +50,11 @@ void Load() {
 		p.setSize(paddleSize - Vector2f(3, 3));
 		p.setOrigin(paddleSize / 2.f);
 	}
+
+	//font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
+	//text.setFont(font);
+	//text.setCharacterSize(24);
+
 	
 	reset();
 }
