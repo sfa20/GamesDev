@@ -9,6 +9,7 @@ using namespace std;
  
 sf::Texture spritesheet;
 sf::Sprite invader;
+sf::Sprite player;
 std::vector<Ship *> ships;
 
 
@@ -19,7 +20,9 @@ void Load()
 		cerr << "Failed to load spritesheet" << std::endl;
 	}
 
-	
+	Player* player = new Player();
+	ships.push_back(player);
+
 	for (int r = 0; r < invaders_rows; ++r) 
 	{
 		auto rect = IntRect(0,0,32,32);
@@ -52,6 +55,7 @@ void Render(RenderWindow &window)
 		window.draw(*s);
 	}
 	window.draw(invader);
+	window.draw(player);
 }
 
 
