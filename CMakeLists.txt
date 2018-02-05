@@ -27,3 +27,9 @@ file(GLOB_RECURSE SOURCES practical_2/*.cpp practical_2/*.h)
 add_executable(PRACTICAL_2 ${SOURCES})
 target_include_directories(PRACTICAL_2 SYSTEM PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_2 sfml-graphics)
+
+#### Practical 3 ####
+file(GLOB_RECURSE SOURCES practical_3/*.cpp practical_3/*.h)
+add_executable(PRACTICAL_3 ${SOURCES})
+target_include_directories(PRACTICAL_3 SYSTEM PRIVATE ${SFML_INCS})
+target_link_libraries(PRACTICAL_3 sfml-graphics)

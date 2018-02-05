@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 
+
+/******BASE CLASS******/
 class Ship : public sf::Sprite {
 protected:
 	sf::IntRect _sprite; 
@@ -15,6 +17,9 @@ public:
 	virtual void Update(const float &dt);
 };
 
+
+
+/******INVADER CLASS******/
 class Invader : public Ship {
 public:
 	static bool direction;
@@ -26,6 +31,9 @@ public:
 	void Update(const float &dt) override;
 };
 
+
+
+/*******PLAYER CLASS******/
 class Player : public Ship {
 public:
 	static float speed;
@@ -33,5 +41,4 @@ public:
 	void Update(const float &dt) override;
 };
 
-extern std::vector<Ship *> ships;
 
