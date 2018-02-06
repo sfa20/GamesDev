@@ -42,3 +42,5 @@ public:
 };
 
 
+extern std::vector<Ship *> ships;
+

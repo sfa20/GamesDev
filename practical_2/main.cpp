@@ -23,7 +23,7 @@ void Load()
 	Player* player = new Player();
 	ships.push_back(player);
 	
-	Vector2f position2(gamewidth / 2, gameheight /  2);
+	Vector2f position2(gameWidth / 2, gameHeight /  2);
 	//auto bullet = new Bullet(position2, true);
 	//bullets.push_back(bullet);
 
@@ -32,14 +32,11 @@ void Load()
 		auto rect = IntRect(0,0,32,32);
 		for (int c = 0; c < invaders_columns; ++c)
 		{
-			Vector2f position(125 + gamewidth / 18 * c, 30 + gameheight / 18 * r);
+			Vector2f position(125 + gameWidth / 18 * c, 30 + gameHeight / 18 * r);
 			auto inv = new Invader(rect, position);
 			ships.push_back(inv);
 		}
 	}
-
-	//Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), { 200, 200 });
-	//ships.push_back(inv);
 }
 
 void Update(RenderWindow &window)
@@ -50,6 +47,10 @@ void Update(RenderWindow &window)
 		s->Update(dt);
 	}
 
+	for (auto &b : bullets)	{
+		b->Update(dt);
+	}
+
 }
 
 void Render(RenderWindow &window)
@@ -58,13 +59,13 @@ void Render(RenderWindow &window)
 		window.draw(*s);
 	}
 
-	/*for (const auto s : bullets) {
-		window.draw(*s);
-	}*/
+	for (const auto b : bullets) {
+		window.draw(*b);
+	}
 }
 
 int main() {
-	RenderWindow window(VideoMode(gamewidth, gameheight),"space invaders");
+	RenderWindow window(VideoMode(gameWidth, gameHeight),"space invaders");
 	Load();
 	while (window.isOpen())
 	{
